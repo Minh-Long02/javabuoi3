@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Website Books</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/books}">Home</a></li>
+            <li><a th:href="@{/books}">List Book</a></li>
+            <li><a th:href="@{/books/add}">Add Book</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <div class="container">
+            <h2 style="text-align: center;">Add Book</h2>
+            <form th:action="@{/books/add}" method="post" th:object="${book}">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" class="form-control" id="title" th:field="*{title}" required>
+                </div>
+                <div class="form-group">
+                    <label for="author">Author:</label>
+                    <input type="text" class="form-control" id="author" th:field="*{author}" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" class="form-control" id="price" th:field="*{price}" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select class="form-control" id="category" th:field="*{category}" required>
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            <a href="/books" class="back-link">Back to list</a>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
