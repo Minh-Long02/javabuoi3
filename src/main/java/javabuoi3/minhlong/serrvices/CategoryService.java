@@ -15,4 +15,5 @@ public class CategoryService {
     public Category getCategoryById(Long id) { return categoryRepository.findById(id).orElse(null);}
     public Category saveCategogy (Category category) {return categoryRepository.save(category);}
     public void deleteCategogy(Long id) {categoryRepository.deleteById(id);}
+    public void updateCategory(Category category){categoryRepository.save(category);}
 }
