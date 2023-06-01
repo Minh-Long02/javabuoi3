@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Quản Lý Sách</title>
@@ -29,6 +29,9 @@
     .actions a {
       margin-right: 10px;
     }
+    .navbar-nav.ml-auto {
+      margin-left: auto;
+    }
   </style>
 </head>
 <body>
@@ -46,12 +49,22 @@
         <a class="nav-link" href="/books/add">Add Book</a>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+      <li sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+          <button class="btn btn-outline-danger" type="submit">Logout</button>
+        </form>
+      </li>
+      <li sec:authorize="!isAuthenticated()">
+        <a class="btn btn-outline-primary" href="/login">Login</a>
+      </li>
+    </ul>
   </div>
 </nav>
 <div class="container">
   <h2>TRANG CHỦ ỨNG DỤNG QUẢN LÝ SÁCH - KẾT NỐI CSDL MYSQL</h2>
-
 </div>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
+

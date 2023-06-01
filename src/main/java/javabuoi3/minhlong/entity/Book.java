@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import javabuoi3.minhlong.Validator.annotation.ValidCategoryId;
+import javabuoi3.minhlong.Validator.annotation.ValidUserId;
+
+
+import javabuoi3.minhlong.Validator.annotation.ValidUsername;
 import lombok.Data;
 
 @Data
@@ -29,7 +33,12 @@ public class Book {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ValidCategoryId
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ValidUserId
+    private User user;
 }

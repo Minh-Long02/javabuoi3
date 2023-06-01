@@ -63,12 +63,7 @@
     <section>
         <div class="container">
             <h2 style="text-align: center;">Add Book</h2>
-<!--            <div th:if="${#fields.hasErrors('*')}" class="error-message">-->
-<!--                <p>Please fix the following errors:</p>-->
-<!--                <ul>-->
-<!--                    <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>-->
-<!--                </ul>-->
-<!--            </div>-->
+
             <form th:action="@{/books/add}" method="post" th:object="${book}">
                 <div class="form-group">
                     <label for="title">Title:</label>
