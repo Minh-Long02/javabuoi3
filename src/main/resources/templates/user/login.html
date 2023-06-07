@@ -1,113 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register and Login</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        /* CSS styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin:0;
-        }
-        .checkbox-container label {
-            margin-left: 5px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .register-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-        }
-         header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <th:block th:insert="~{layout :: link-css}"></th:block>
 </head>
-<header>
-    <h1>Website Books</h1>
-    <nav>
-        <ul>
-            <li><a th:href="@{/}">Home</a></li>
-
-        </ul>
-    </nav>
-</header>
 <body>
-<div class="container">
-    <h2>Login</h2>
-    <form action="/login" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <div class="checkbox-container">
-            <input type="checkbox" id="remember" name="remember">
-            <label for="remember">Remember me</label>
-        </div>
-        <input type="submit" value="Login">
-    </form>
-    <a href="/register" class="register-link">Don't have an account? Register now!</a>
+<th:block th:insert="~{layout :: header}"></th:block>
+<div class="container"></div>
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <h3 class="card-title text-center">Login</h3>
+        <form th:action="@{/login}" method="post">
+            <fieldset>
+                <legend>Please Login</legend>
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Invalid username and password
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out.
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-Label">Username: </label>
+                    <input type="text" required class="form-control" id="username" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password: </Label>
+                    <input type="password" required class="form-control" id="password" name="password">
+                </div>
+                <div class="mb-3">
+                    <input type="checkbox" name="remember-me" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <div class="d-grid gap-2 form-action">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a class="text-primary text-center" href="/register">Don't have account. Sign up?</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>
+</div>
+<th:block th:insert="~{layout :: footer}"></th:block>
 </body>
 </html>

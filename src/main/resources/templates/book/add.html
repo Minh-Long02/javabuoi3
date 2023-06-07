@@ -1,102 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
+    <th:block th:insert="layout :: link-css"></th:block>
     <title>Add Book</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <style>
-        /* CSS styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-        }
-        .error-message {
-            color: red;
-        }
-    </style>
 </head>
 <body>
-<header>
-    <h1>Website Books</h1>
-    <nav>
-        <ul>
-            <li><a th:href="@{/books}">Home</a></li>
-            <li><a th:href="@{/books}">List Book</a></li>
-            <li><a th:href="@{/books/add}">Add Book</a></li>
-        </ul>
-    </nav>
-</header>
-
-<main>
-    <section>
-        <div class="container">
-            <h2 style="text-align: center;">Add Book</h2>
-
-            <form th:action="@{/books/add}" method="post" th:object="${book}">
-                <div class="form-group">
-                    <label for="title">Title:</label>
-                    <input type="text" class="form-control" id="title" th:field="*{title}" >
-                    <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-                </div>
-                <div class="form-group">
-                    <label for="author">Author:</label>
-                    <input type="text" class="form-control" id="author" th:field="*{author}" >
-                    <p th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="error-message"></p>
-                </div>
-                <div class="form-group">
-                    <label for="price">Price:</label>
-                    <input type="number" class="form-control" id="price" th:field="*{price}" >
-                    <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-                </div>
-                <div class="form-group">
-                    <label for="category">Category:</label>
-                    <select class="form-control" id="category" th:field="*{category.id}" >
-                        <option value="">-- Select Category --</option>
-                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-                    </select>
-                    <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
-                </div>
-                <div style="text-align: center;">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
-
-            <a href="/books" class="back-link">Back to list</a>
+<th:block th:insert="layout :: header"></th:block>
+<div class="container">
+    <h1>Add Book</h1>
+    <form th:action="@{/book/add}" th:object="${book}" method="post">
+        <div class="col-6 mb-3">
+            <label class="form-label" for="title">Title:</label>
+            <input class="form-control" type="text" th:field="*{title}" id="title">
+            <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         </div>
-    </section>
-</main>
-
+        <div class="col-6 mb-3">
+            <label class="form-label" for="author">Author:</label>
+            <input class="form-control" type="text" th:field="*{author}" id="author">
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="price">Price:</label>
+            <input class="form-control" type="text" th:field="*{price}" id="price">
+            <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="category">Category:</label>
+            <select class="form-control" id="category" name="category.id">
+                <option value="">-- Select Category --</option>
+                <option th:each="category : ${categories}" th:value="${category.id}"
+                        th:text="${category.name}"></option>
+            </select>
+            <span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+    <br>
+    <a th:href="@{/book}">Back to List</a>
+</div>
+<th:block th:insert="layout :: footer"></th:block>
 </body>
 </html>

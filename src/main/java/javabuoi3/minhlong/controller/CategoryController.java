@@ -1,6 +1,6 @@
 package javabuoi3.minhlong.controller;
 
-import javabuoi3.minhlong.entity.Book;
+
 import javabuoi3.minhlong.entity.Category;
 import javabuoi3.minhlong.serrvices.CategoryService;
 
@@ -20,12 +20,11 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public String showAllCategories(Model model) {
+    public String showAllCategories(Model model){
         List<Category> categories = categoryService.getAllCategories();
-        model.addAttribute("categories", categories);
-        return "category/list";
+        model.addAttribute("categories",categories);
+        return  "category/list";
     }
-
     @GetMapping("/add")
     public String addCategoryForm(Model model) {
         model.addAttribute("category", new Category());
@@ -34,17 +33,16 @@ public class CategoryController {
 
     @PostMapping("/add")
     public String addCategory(@ModelAttribute("category") Category category) {
-        categoryService.saveCategogy(category);
+        categoryService.saveCategory(category);
         return "redirect:/categories";
     }
 
     @GetMapping("/edit/{id}")
-    public String editCategoryForm(@PathVariable("id") Long id, Model model) {
+    public String editCategoryForm (@PathVariable("id") Long id, Model model){
         Category editCategory = categoryService.getCategoryById(id);
         model.addAttribute("category", editCategory);
         return "category/edit";
     }
-
     @PostMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, @Valid @ModelAttribute("category") Category updatedCategory, BindingResult result, Model model) {
         if (updatedCategory == null) {
@@ -58,7 +56,7 @@ public class CategoryController {
     public String deleteCategory(@PathVariable("id") Long id) {
         Category category = categoryService.getCategoryById(id);
         if (category != null) {
-            categoryService.deleteCategogy(id);
+            categoryService.deleteCategory(id);
         }
         return "redirect:/categories";
     }

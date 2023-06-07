@@ -1,98 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+        xmlns:th="http://www.thymeleaf.org"
+        lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>List</title>
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-  <style>
-        /* CSS styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-        }
-
-    </style>
+  <title>My Book List</title>
+  <th:block th:insert ="layout :: link-css"></th:block>
 </head>
 <body>
-<header>
-  <h1>Website Books</h1>
-  <nav>
-    <ul>
-      <li><a th:href="@{/books}">Home</a></li>
-      <li><a th:href="@{/categories}">List Categories</a></li>
-      <li><a th:href="@{/books}">List Book</a></li>
-      <li><a th:href="@{/books/add}">Add Book</a></li>
-    </ul>
-  </nav>
-</header>
+<th:block th:insert="layout :: header"></th:block>
+<div class="container">
+  <h1 th:text=${title}></h1>
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th sec:authorize="hasAnyAuthority('Admin')">Action</th>
+    </tr>
+    <tr th:each="book : ${books}">
+      <td th:text="${book.id}"></td>
+      <td th:text="${book.title}"></td>
+      <td th:text="${book.author}"></td>
+      <td th:text="${book.price}"></td>
+      <td th:text="${book.category.name}"></td>
+      <td sec:authorize="hasAnyAuthority('Admin')">
+        <a th:href="@{/book/edit/{id}(id=${book.id})}">Edit</a>
+        <a th:href="@{/book/delete/{id}(id=${book.id})}"
+           onclick="return confirm('Are you sure?')">Delete</a>
+      </td>
+    </tr>
+  </table>
+</div>
 
-<main>
-  <section>
-    <div class="container">
-      <h2>List of Books</h2>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Price</th>
-          <th>Category</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book : ${books}">
-          <td th:text="${book.id}"></td>
-          <td th:text="${book.title}"></td>
-          <td th:text="${book.author}"></td>
-          <td th:text="${book.price}"></td>
-          <td th:text="${book.category.name}"></td>
-          <td>
-            <a th:href="@{/books/edit/{id}(id=${book.id})}">Edit |</a>
-            <a th:href="@{/books/delete/{id}(id=${book.id})}" onclick="return confirm('Are you sure you want to delete this book?')" th:method="delete">Delete</a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-</main>
-
-<footer th:fragment="footer">
-
-  <script th:src="@{/js/bootstrap.min.js}"></script>
-</footer>
+<th:block th:insert="layout :: footer"></th:block>
 </body>
 </html>

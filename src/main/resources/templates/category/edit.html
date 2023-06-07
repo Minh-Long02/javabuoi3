@@ -1,79 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Edit Category</title>
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-  <style>
-        /* CSS styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-        }
-        .error-message {
-            color: red;
-        }
-    </style>
+  <th:block th:insert="layout.html :: link-css"></th:block>
 </head>
 <body>
-<header>
-  <h1>Website Categories</h1>
-  <nav>
-    <ul>
-      <li><a th:href="@{/categories}">Home</a></li>
-      <li><a th:href="@{/categories}">List Categories</a></li>
-      <li><a th:href="@{/categories/add}">Add Category</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <section>
-    <div class="container">
-      <h2 style="text-align: center;">Edit Category</h2>
-      <form th:action="@{/categories/edit/{id}(id=${category.id})}" method="post" th:object="${category}">
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input type="text" class="form-control" id="name" th:field="*{name}" >
-        </div>
-        <div style="text-align: center;">
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-      </form>
+<th:block th:insert="layout.html :: header"></th:block>
+<div class="container">
+  <h1>Edit Category</h1>
+  <form th:action="@{/categories/edit/{id}(id=${category.id})}" th:object="${category}" method="post">
+    <div class="col-6 md-3">
+      <label for="name" class="form-label">Name: </label>
+      <input type="text" class="form-control" th:field="*{name}" id="name">
     </div>
-  </section>
-</main>
-
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+  <br>
+  <a th:href="@{/categories}">Back to list</a>
+</div>
+<th:block th:insert="layout :: footer"></th:block>
 </body>
 </html>

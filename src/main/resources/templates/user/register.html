@@ -1,75 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Đăng ký</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        /* CSS styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input[type="text"],
-        input[type="password"],
-        input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .error-message {
-            color: red;
-            margin-top: 5px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <th:block th:insert="~{layout :: link-css}"></th:block>
 </head>
 <body>
-<div class="container">
-    <h2>Đăng ký</h2>
-    <form action="/register" method="post">
-        <label for="username">Tên đăng nhập:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Mật khẩu:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-        <br>
-        <label for="name">Tên:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <input type="submit" value="Đăng ký">
-    </form>
+<th:block th:insert="~{layout :: header}"></th:block>
+<div class="container"></div>
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <h3 class="card-title text-center">Sign Up</h3>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-Label">First name: </label><span class="text-danger">*</span>
+                <input type="text" required class="form-control" id="name" name="name">
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="mail" class="form-Label">Email: </label>
+                <input type="text" required class="form-control" id="mail" name="email">
+                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-Label">Username: </label>
+                <input type="text" required class="form-control" id="username" name="username">
+                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{username}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-Label">Password: </label>
+                <input type="password" required class="form-control" id="password" name="password">
+                <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-info">Sign up</button>
+            </div>
+        </form>
+    </div>
 </div>
+</div>
+<th:block th:insert="~{layout :: footer}"></th:block>
 </body>
 </html>

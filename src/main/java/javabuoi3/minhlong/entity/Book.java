@@ -1,39 +1,34 @@
 package javabuoi3.minhlong.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import javabuoi3.minhlong.Validator.annotation.ValidCategoryId;
 import javabuoi3.minhlong.Validator.annotation.ValidUserId;
+import jakarta.persistence.*;
 
-
-import javabuoi3.minhlong.Validator.annotation.ValidUsername;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table (name ="book")
+@Table(name = "book")
 public class Book {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType. IDENTITY)
     private Long id;
 
-    @Column(name ="title")
-    @NotEmpty(message = "Title mustt not be empty")
+    @Column(name = "title")
+    @NotEmpty(message = "Title must not be empty")
     @Size(max = 50, min = 1, message = "Title must be less than 50 characters")
     private String title;
 
-    @Column(name ="author")
+    @Column(name = "author")
     private String author;
 
-    @Column(name ="price")
-    //annotation để ràng buộc việc nhập liệu,chú thích
+    @Column(name = "price")
     @NotNull(message = "Price is required")
-    private double price;
+    private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id")
     @ValidCategoryId
     private Category category;
 
