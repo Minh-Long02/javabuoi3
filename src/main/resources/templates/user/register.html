@@ -14,26 +14,28 @@
     <div class="col-lg-6 col-md-8">
         <h3 class="card-title text-center">Sign Up</h3>
         <form th:action="@{/register}" th:object="${user}" method="post">
+            <!-- Thêm attribute 'required' cho input name, email, username và password -->
             <div class="mb-3">
                 <label for="name" class="form-Label">First name: </label><span class="text-danger">*</span>
-                <input type="text" required class="form-control" id="name" name="name">
+                <input type="text"  class="form-control" id="name" name="name">
                 <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
             </div>
             <div class="mb-3">
                 <label for="mail" class="form-Label">Email: </label>
-                <input type="text" required class="form-control" id="mail" name="email">
+                <input type="text"  class="form-control" id="mail" name="email">
                 <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             </div>
             <div class="mb-3">
                 <label for="username" class="form-Label">Username: </label>
-                <input type="text" required class="form-control" id="username" name="username">
-                <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{username}"></span>
+                <input type="text"  class="form-control" id="username" name="username">
+                <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-Label">Password: </label>
-                <input type="password" required class="form-control" id="password" name="password">
+                <input type="password"  class="form-control" id="password" name="password">
                 <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             </div>
+
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-info">Sign up</button>
             </div>

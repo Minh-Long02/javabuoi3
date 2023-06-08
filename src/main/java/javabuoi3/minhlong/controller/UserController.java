@@ -1,6 +1,7 @@
 package javabuoi3.minhlong.controller;
 
 import jakarta.validation.Valid;
+import javabuoi3.minhlong.entity.Book;
 import javabuoi3.minhlong.serrvices.UserService;
 import javabuoi3.minhlong.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +13,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 public class UserController {
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/login")
-    public String login() { return "user/login";}
+    public String login() {
+        return "user/login";
+    }
 
     @GetMapping("/register")
-    public String register(Model model){
+    public String register(Model model) {
         model.addAttribute("user", new User());
         return "user/register";
     }
