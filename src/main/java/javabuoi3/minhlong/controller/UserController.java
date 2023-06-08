@@ -36,7 +36,8 @@ public class UserController {
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            bindingResult.getFieldErrors().forEach(error -> model.addAttribute(error.getField() + "_error", error.getDefaultMessage()));
+            bindingResult.getFieldErrors().forEach(error
+                    -> model.addAttribute(error.getField() + "_error", error.getDefaultMessage()));
             return "user/register";
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));

@@ -18,5 +18,5 @@ public class CategoryService {
 
     public void updateCategory(Category category){
         categoryRepository.save(category);
-    }
+}
 }
